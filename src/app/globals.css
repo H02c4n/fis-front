@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/*
+  Design tokens for the Flyttstädning site.
+
+  Palette (from the brief, refined for contrast):
+  - navy      #061735  primary dark – header, footer, dark sections, body text on light bg
+  - navy-2    #0E2A57  one step lighter navy, used for hover/active states on dark surfaces
+  - moss      #2F5233  deep green derived from the brief's light green, used for links/icons/
+              focus rings on light backgrounds where the light green itself is too pale to read
+  - sage      #E5F2D0  the brief's light green – used as a warm fill behind cards, badges, tags
+  - sand      #F7F7F5  page background
+  - white     #FFFFFF
+  - ink       #101828  body text
+  - ink-soft  #4B5565  secondary text
+  - line      #E4E4E0  hairline borders on the sand background
+  - line-dark rgba(255,255,255,.14) hairline borders on navy
+*/
+@theme {
+  --color-navy: #061735;
+  --color-navy-2: #0e2a57;
+  --color-moss: #2f5233;
+  --color-moss-light: #3f6b45;
+  --color-sage: #e5f2d0;
+  --color-sage-deep: #cfe6ac;
+  --color-sand: #f7f7f5;
+  --color-white: #ffffff;
+  --color-ink: #101828;
+  --color-ink-soft: #4b5565;
+  --color-line: #e4e4e0;
+
+  --font-sans: var(--font-sora), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --container-content: 72rem;
+  --container-narrow: 42rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+html, body {
+  /* Site-wide safety net: a flex/grid child with a wide intrinsic content width (e.g. a
+     horizontally-scrollable strip, like the date picker in the booking flow) should scroll
+     *within itself*, never push the whole page sideways. The real fix is min-w-0 on the
+     container chain around any such strip; this is the backstop in case a future one is added
+     without it. */
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--color-sand);
+  color: var(--color-ink);
+  font-feature-settings: "ss01" 1, "cv01" 1;
+}
+
+/* Consistent, visible keyboard focus everywhere — never suppressed. */
+:focus-visible {
+  outline: 2px solid var(--color-moss);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.container-content {
+  max-width: var(--container-content);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .container-content { padding-inline: 2rem; }
+}
+
+/* Underline-style link used inside body copy, never a bare color change. */
+.link-underline {
+  text-underline-offset: 3px;
+  text-decoration-line: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+}
